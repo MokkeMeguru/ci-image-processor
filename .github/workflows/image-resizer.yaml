@@ -35,7 +35,7 @@ jobs:
       - name: checkout new-branch
         run: |
           git checkout -b CI/`git rev-parse HEAD`
-          echo "::set-output name=name::${CI/`git rev-parse HEAD`}"
+          echo "::set-output name=name::CI/`git rev-parse HEAD`"
         id: new-branch
       - name: generate files
         run: |
