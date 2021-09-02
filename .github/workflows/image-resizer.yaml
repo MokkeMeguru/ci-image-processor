@@ -45,17 +45,17 @@ jobs:
             git diff --name-only --diff-filter=AM 7d3dd9a ${{ env.WATCH_FOLDER }} | grep -v "[0-9]\+x[0-9]\+" | \
             xargs -i python ./.github/scripts/image-resizer/main.py {} ${{ env.WIDTH }} ${{ env.HEIGHT }}
           fi
-          echo "::set-output name=count::$(git diff --name-only | wc -l)"
-        id: generate-files
       - name: commit
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
+          echo "::set-output name=count::$(git diff --name-only | wc -l)"
           git commit -m "${{ env.CI_MESSAGE }}"
+        id: commit
       - name: pull-request
         uses: repo-sync/pull-request@v2
-        if: steps.generate-files.outputs.count > 0
+        if: steps.commit.outputs.count > 0
         with:
           destination_branch: ${{ env.TARGET_BRANCH }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
