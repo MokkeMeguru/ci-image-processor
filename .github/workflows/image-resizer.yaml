@@ -1,0 +1,31 @@
+name: player Image resizer
+
+on:
+  push:
+    branches: [main]
+  paths:
+    - "galleries/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f .github/scripts/image-resizer/requirements.txt ]; then
+            pip install -r .github/scripts/image-resizer/requirements.txt
+          fi
+      - name: find latest ci commit hash
+        run: |
+          echo '::set-output name=HASH::${git log --oneline | grep [CI IMAGE RESIZER] | head -n 1 | tr -s " " | cut -d " " -f 1}'
+        id: find-latest-ci-commit-hash
+      - name: print
+        run: |
+          echo ${{ steps.find-latest-ci-commit-hash.HASH }}
