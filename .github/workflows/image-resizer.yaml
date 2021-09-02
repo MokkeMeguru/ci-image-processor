@@ -35,4 +35,5 @@ jobs:
           if [[ -z $hash ]]; then
             echo 'set-output name=FILES::${find ${{ env.WATCH_FOLDER }} -type f}'
           fi
+          ls -la
           echo `find ${{ env.WATCH_FOLDER }} -type f`
