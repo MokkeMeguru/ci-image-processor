@@ -49,9 +49,9 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git add .
           echo `git diff --name-only HEAD | wc -l`
           echo "::set-output name=count::$(git diff --name-only HEAD | wc -l)"
-          git add .
           git commit -m "${{ env.CI_MESSAGE }}"
         id: commit
       - name: pull-request
