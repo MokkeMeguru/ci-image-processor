@@ -44,6 +44,10 @@ jobs:
           fi
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
         id: generate-files
+      - name: hello
+        run: |
+          echo ${{ steps.generate-files.outputs.count }}
+          git diff
       - name: checkout new-branch
         if: steps.generate-files.outputs.count > 0
         run: |
