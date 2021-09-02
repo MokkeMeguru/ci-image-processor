@@ -3,8 +3,8 @@ name: player Image resizer
 on:
   push:
     branches: [main]
-    paths:
-      - "galleries/**"
+    # paths:
+    #  - "galleries/**"
   workflow_dispatch:
 
 jobs:
