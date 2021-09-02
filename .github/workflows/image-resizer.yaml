@@ -9,12 +9,12 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, pc]
+    runs-on: ubuntu-latest
     env:
       WATCH_FOLDER: "./gallery"
       CI_MESSAGE: "[CI IMAGE RESIZER]"
     steps:
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -35,3 +35,4 @@ jobs:
           if [[ -z $hash ]]; then
             echo 'set-output name=FILES::${find ${{ env.WATCH_FOLDER }} -type f}'
           fi
+          echo `find ${{ env.WATCH_FOLDER }} -type f`
