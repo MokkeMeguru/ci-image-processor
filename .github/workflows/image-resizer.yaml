@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, pc]
     env:
       WATCH_FOLDER: "./gallery"
       CI_MESSAGE: "[CI IMAGE RESIZER]"
