@@ -49,11 +49,13 @@ jobs:
         id: generate-files
       - name: commit
         run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add .
           git commit -m "${{ env.CI_MESSAGE }}"
       - name: pull-request
         uses: repo-sync/pull-request@v2
+        if: steps.generate-files.outputs.count > 0
         with:
-          if: steps.generate-files.outputs.count > 0
           destination_branch: ${{ env.TARGET_BRANCH }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
