@@ -31,5 +31,6 @@ jobs:
         id: find-latest-ci-commit-hash
       - name: print
         run: |
-          if [[ -z ${{ steps.find-latest-ci-commit-hash.HASH }} ]]; then
+          export hash=${{ steps.find-latest-ci-commit-hash.HASH }}
+          if [[ -z $hash ]]; then
             echo 'set-output name=FILES::${find ${{ env.WATCH_FOLDER }} -type f}'
