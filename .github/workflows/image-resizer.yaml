@@ -15,7 +15,7 @@ jobs:
       WATCH_FOLDER: "./gallery"
       CI_MESSAGE: "[CI IMAGE RESIZER]"
       WIDTH: 410
-      HEIGT: 536
+      HEIGHT: 536
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
