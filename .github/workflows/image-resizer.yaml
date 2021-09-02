@@ -58,5 +58,5 @@ jobs:
         uses: repo-sync/pull-request@v2
         if: steps.commit.outputs.count > 0
         with:
-          destination_branch: ${{ env.TARGET_BRANCH }}
+          destination_branch: "main"
           github_token: ${{ secrets.GITHUB_TOKEN }}
