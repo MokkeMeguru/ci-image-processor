@@ -9,7 +9,6 @@ logging.basicConfig(level=logging.INFO)
 
 
 def crop_and_resize(img: Image.Image, width: int, height: int) -> Image.Image:
-    print(width, height)
     img_ratio = img.size[0] / float(img.size[1])
     ratio = width / height
     if ratio > img_ratio:
@@ -56,6 +55,7 @@ def main():
             args.width, args.height
         )
         img.save(store_path, bitmap_format="png")
+        print("successed {}".format(args.image_file))
     except:
         logging.warn("invalid file name: {}".format(args.image_file))
 
