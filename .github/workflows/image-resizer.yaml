@@ -32,4 +32,4 @@ jobs:
       - name: print
         run: |
           if [[ -z ${{ steps.find-latest-ci-commit-hash.HASH }} ]]; then
-            echo 'set-output name=FILES::${find ${{ WATCH_FOLDER }} -type f}'
+            echo 'set-output name=FILES::${find ${{ env.WATCH_FOLDER }} -type f}'
