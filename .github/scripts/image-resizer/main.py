@@ -9,7 +9,6 @@ logging.basicConfig(level=logging.INFO)
 
 
 def crop_and_resize(img: Image.Image, width: int, height: int) -> Image.Image:
-    print(img.size[0], img.size[1])
     print(width, height)
     img_ratio = img.size[0] / float(img.size[1])
     ratio = width / height
