@@ -32,6 +32,9 @@ jobs:
         run: |
           echo '::set-output name=HASH::${git log --oneline | grep ${{ env.CI_MESSAGE }} | head -n 1 | tr -s " " | cut -d " " -f 1}'
         id: find-latest-ci-commit-hash
+      - name: checkout new-branch
+        run: |
+          git checkout -b CI/`git rev-parse HEAD`
       - name: generate files
         run: |
           export hash=${{ steps.find-latest-ci-commit-hash.HASH }}
@@ -44,18 +47,13 @@ jobs:
           fi
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
         id: generate-files
-      - name: hello
+      - name: commit
         run: |
-          echo ${{ steps.generate-files.outputs.count }}
-          git diff
-      - name: checkout new-branch
-        if: steps.generate-files.outputs.count > 0
-        run: |
-          git checkout -b CI/`git rev-parse HEAD`
           git add .
           git commit -m "${{ env.CI_MESSAGE }}"
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
+          if: steps.generate-files.outputs.count > 0
           destination_branch: ${{ env.TARGET_BRANCH }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
