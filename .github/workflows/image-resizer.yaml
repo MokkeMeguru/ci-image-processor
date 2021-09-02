@@ -14,7 +14,7 @@ jobs:
       WATCH_FOLDER: "./gallery"
       CI_MESSAGE: "[CI IMAGE RESIZER]"
     steps:
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
