@@ -35,6 +35,8 @@ jobs:
       - name: checkout new-branch
         run: |
           git checkout -b CI/`git rev-parse HEAD`
+          echo "::set-output name=name::${CI/`git rev-parse HEAD`}"
+        id: new-branch
       - name: generate files
         run: |
           export hash=${{ steps.find-latest-ci-commit-hash.HASH }}
@@ -58,5 +60,6 @@ jobs:
         uses: repo-sync/pull-request@v2
         if: steps.commit.outputs.count > 0
         with:
-          destination_branch: "main"
+          source_branch: ${{ steps.new-branch.outputs.name }}
+          destination_branch: ${{ env.TARGET_BRANCH }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
